@@ -1,14 +1,22 @@
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 
 class HisabApp(App):
     def build(self):
         layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
         
-        layout.add_widget(Label(text="My Hisab App", font_size=24, size_hint_y=None, height=50))
+        try:
+            app_logo = Image(source='logo.png', size_hint_y=None, height=120)
+            layout.add_widget(app_logo)
+        except Exception:
+            pass
+
+        layout.add_widget(Label(text="Amar Hisab App", font_size=24, size_hint_y=None, height=50))
         
         layout.add_widget(Label(text="Enter Description (Income/Expense):"))
         self.description_input = TextInput(multiline=False, size_hint_y=None, height=40)
@@ -22,8 +30,23 @@ class HisabApp(App):
         save_btn.bind(on_press=self.save_data)
         layout.add_widget(save_btn)
         
-        self.result_label = Label(text="", font_size=16)
+        self.result_label = Label(text="", font_size=16, size_hint_y=None, height=40)
         layout.add_widget(self.result_label)
+        
+        producer_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height=80, spacing=10)
+        
+        try:
+            producer_img = Image(source='producer.jpg', size_hint_x=None, width=70)
+            producer_layout.add_widget(producer_img)
+        except Exception:
+            pass
+            
+        producer_info = BoxLayout(orientation='vertical')
+        producer_info.add_widget(Label(text="Producer: SAHAJHAN HOSSAN", font_size=14, halign='left', valign='middle'))
+        producer_info.add_widget(Label(text="App Version: 0.1", font_size=12, halign='left', valign='middle'))
+        
+        producer_layout.add_widget(producer_info)
+        layout.add_widget(producer_layout)
         
         return layout
 
